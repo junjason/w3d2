@@ -8,9 +8,15 @@ class Board
         @grid.flatten.count("_")
     end
 
+    def valid_pos?(pos)
+        row, col = pos
+        return true if @grid[row][col] == '_'
+        false
+    end
+
     def populate
         until num_empty_tiles == 0
-            used = []
+            used_val = []
             val = CARD_VALUES.sample
             while used.index(val)
                 val = CARD_VALUES.sample
@@ -18,7 +24,9 @@ class Board
             2.times do 
                 rand_row = rand(0..@grid.length-1)
                 rand_col = rand(0..@grid.length-1)
-                @grid[rand_row][rand_col] = Card.new(val)
+                if valid_pos?([rand_row, rand_col])
+                    @grid[rand_row][rand_col] = Card.new(val)
+                end
             end
             used << val
         end
