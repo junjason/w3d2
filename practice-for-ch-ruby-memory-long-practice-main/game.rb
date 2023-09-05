@@ -1,6 +1,7 @@
 class Game
     def initialize(size)
         @board = Board.new(size=3)
+        @previous_guess = []
     end 
 
     def prompt
@@ -9,12 +10,27 @@ class Game
         pos
     end
 
-    def make_guess
-        
+    def make_guess(pos)
+        if @previous_guess.empty?
+            @previous_guess << pos 
+        else
+            prev_card = @board[@previous_guess[0]]
+            guessed_card = @board[pos]
+            if prev_card==guessed_card
+                prev_card.reveal
+                guessed_card.reveal
+            else
+                sleep(3)
+                prev_card.hide
+                guessed_card.hide
+            end
+            @previous_guess.pop
+        end
     end
 
     def play
         while true
+            system("clear")
             @board.render
             guessed_pos = prompt
             make_guess(guessed_pos)

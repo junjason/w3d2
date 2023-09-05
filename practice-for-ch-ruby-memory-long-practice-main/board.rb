@@ -14,6 +14,12 @@ class Board
         false
     end
 
+    def [](pos)
+        @grid[pos[0]][pos[1]]
+    end
+
+
+
     def populate
         until num_empty_tiles == 0
             used_val = []
