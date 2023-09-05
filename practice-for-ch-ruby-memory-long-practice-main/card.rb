@@ -1,6 +1,7 @@
 class Card
+
     def initialize(value)
-        @value = value
+        @value = VALUES.sample
         @face_up = false
     end
 
@@ -11,6 +12,11 @@ class Card
     def reveal
         @face_up = true if @face_up == false
     end
+
+    def face_up?
+        @face_up
+    end
+
 
     
 
